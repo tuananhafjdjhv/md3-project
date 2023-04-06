@@ -5,8 +5,12 @@ import ra.controller.UserController;
 import ra.dto.reponse.ResponseMessage;
 import ra.dto.request.SingInDTO;
 import ra.dto.request.SingUpDTO;
+import ra.model.Role;
+import ra.model.RoleName;
 import ra.model.User;
+import sun.applet.Main;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -36,7 +40,6 @@ public class UserView {
         Set<String> strRole = new HashSet<>();
         strRole.add(role);
         SingUpDTO sing = new SingUpDTO(id, name, username, email, password, strRole);
-        while (true) {
             System.out.println("chay quay lai-->" + sing);
             ResponseMessage responseMessage = userController.register(sing);
             System.out.println("reponse Messeger " + responseMessage.getMessage());
@@ -49,12 +52,15 @@ public class UserView {
                 sing.setEmail(email);
             } else if (responseMessage.getMessage().equals("created_success")) {
                 formLogin();
-                break;
             }
-        }
+
+    }
+    public User getUserLogin(){
+        return userController.getUserLogin();
     }
 
     public void formLogin() {
+
         System.out.println("--------Login-------");
         System.out.println("Nhập UserName:");
         String userName = Config.scanner().nextLine();
@@ -62,15 +68,20 @@ public class UserView {
         String password = Config.scanner().nextLine();
         SingInDTO sing = new SingInDTO(userName, password);
         ResponseMessage message = userController.login(sing);
-        if (message.getMessage().equals("Login Success")) {
-            // Về trang chủ
-            new Decentralization().Decentralization();
-            System.out.println("Chào mừng bạn đến với shop chúng tôi !!");
+        User userLogin = getUserLogin();
+        if (userLogin!=null) {
+            if (message.getMessage().equals("Login Success")){
+                Set<Role> roleSet = userLogin.getRoles();
+                List<Role> roleList = new ArrayList<>(roleSet);
+                if (roleList.get(0).getName()== RoleName.ADMIN){
+                    NavBar.admin();
+                }else {
+                   new NavBar().user();
+                }
+            }
         } else {
             System.err.println("tên đăng nhập hoặc mật khẩu sai!!");
-            while (true) {
                 NavBar.LoginRegister();
-            }
         }
 //        System.out.println("Nhập back để về Login Register: ");
 //        String back = Config.scanner().nextLine();
@@ -86,5 +97,11 @@ public class UserView {
         if (back.equalsIgnoreCase("back")) {
             NavBar.LoginRegister();
         }
+    }
+    public void updateUser(){
+
+    }
+    public  void logOut(){
+
     }
 }

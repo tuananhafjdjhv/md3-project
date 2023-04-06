@@ -10,8 +10,7 @@ public class RoleServiceIMPL implements IRoleService{
     public static List<Role> roles = new ArrayList<>();
     static {
         roles.add(new Role(1,RoleName.USER));
-        roles.add(new Role(2,RoleName.PM));
-        roles.add(new Role(3,RoleName.ADMIN));
+        roles.add(new Role(2,RoleName.ADMIN));
     }
     @Override
     public List<Role> findAll() {

@@ -39,9 +39,7 @@ public class UserController {
             switch (role){
                 case "admin":
                     roleSet.add(roleService.FindByName(RoleName.ADMIN));
-                case "pm":
-                    roleSet.add(roleService.FindByName(RoleName.PM));
-                default:
+                case "user":
                     roleSet.add(roleService.FindByName(RoleName.USER));
             }
         });
