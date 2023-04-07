@@ -25,8 +25,8 @@ public class CartView {
             System.out.print("\n" +
                     "Hiện tại không có sản phẩm nào trong giỏ hàng của bạn");
         }
-
         System.out.println("Total : " +total);
+
     }
     public void addCartItem(){
         System.out.println("Enter product id");
