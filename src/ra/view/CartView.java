@@ -9,11 +9,12 @@ import ra.model.Product;
 import java.util.List;
 
 public class CartView {
-    ProductController productController = new ProductController();
+
     CartController cartController = new CartController();
+    ProductController productController = new ProductController();
     public void showCart(){
         List<CartItem> listCartItems = cartController.getListCartItems();
-        System.out.println("Show list cart");
+        System.out.println("Đây là list cart");
         float total = 0;
         for (CartItem cartitem : listCartItems) {
             total+= cartitem.getProduct().getPrice()*cartitem.getQuantity();

@@ -1,8 +1,9 @@
 package ra.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Cart {
+public class Cart implements Serializable {
     private  User user;
     private List<CartItem> listCartItem;
 
@@ -28,5 +29,13 @@ public class Cart {
 
     public void setListCartItem(List<CartItem> listCartItem) {
         this.listCartItem = listCartItem;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "user=" + user +
+                ", listCartItem=" + listCartItem +
+                '}';
     }
 }

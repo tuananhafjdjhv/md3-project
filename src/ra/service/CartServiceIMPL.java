@@ -15,7 +15,6 @@ public class CartServiceIMPL implements  ICartService{
     public boolean addToCart(CartItem cartItem) {
         Cart carts = findByID(user.getId());
         if (carts != null) {
-
             for (CartItem cart : carts.getListCartItem()) {
                 if (cart.getProduct().getProductId() ==cartItem.getProduct().getProductId()) {
                     cart.setQuantity(cart.getQuantity() + cartItem.getQuantity());
