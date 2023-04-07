@@ -14,6 +14,9 @@ public class CartController {
     public List<CartItem> getListCartItems(){
         User user = cartService.getUserLogin();
         Cart myCart = cartService.findByID(user.getId()) ;
+        if (myCart==null){
+            return new ArrayList<CartItem>();
+        }
        return myCart.getListCartItem();
 
     }

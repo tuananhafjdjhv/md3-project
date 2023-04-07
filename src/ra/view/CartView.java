@@ -16,10 +16,16 @@ public class CartView {
         List<CartItem> listCartItems = cartController.getListCartItems();
         System.out.println("Đây là list cart");
         float total = 0;
-        for (CartItem cartitem : listCartItems) {
-            total+= cartitem.getProduct().getPrice()*cartitem.getQuantity();
-            System.out.printf("{product: %s , quantity : %d} \n",cartitem.getProduct(),cartitem.getQuantity());
+        if (listCartItems.size() > 0) {
+            for (CartItem cartitem : listCartItems) {
+                total+= cartitem.getProduct().getPrice()*cartitem.getQuantity();
+                System.out.printf("{product: %s , quantity : %d} \n",cartitem.getProduct(),cartitem.getQuantity());
+            }
+        } else {
+            System.out.print("\n" +
+                    "Hiện tại không có sản phẩm nào trong giỏ hàng của bạn");
         }
+
         System.out.println("Total : " +total);
     }
     public void addCartItem(){
