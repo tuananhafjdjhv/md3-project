@@ -14,35 +14,36 @@ public class CategoryView {
         System.out.println("===============================TABLE CATEGORY =============================");
         System.out.println("======ID======NAME======");
         for (int i = 0; i < categoryList.size(); i++) {
-            System.out.println("======" + categoryList.get(i).getId() + "======" + categoryList.get(i).getName());
+            System.out.println("======" + categoryList.get(i).getId() + "======" + categoryList.get(i).getName()+"=====");
         }
-        System.out.println("Enter the back to return menu: ");
+        System.out.println("Nhấn back để quay lại Menu ");
         String backMenu = Config.scanner().nextLine();
         if (backMenu.equalsIgnoreCase("back")) {
-            new NavBar();
+           new NavBar().navBar();
         }
     }
 
     public void formCreateCategory() {
-        while (true) {
+
             int id = 0;
             if (categoryList.size() == 0) {
                 id = 1;
             } else {
                 id = categoryList.get(categoryList.size() - 1).getId()+1;
             }
-            System.out.println("Enter the name: ");
+            System.out.println("Nhập tên Category ");
             String name = Config.scanner().nextLine();
             Category category = new Category(id, name);
             categoryController.createCategoryToDB(category);
-            System.out.println("Create Success!");
-            System.out.println("Enter the any key to continue or Enter back to return Menu: ");
+            System.out.println("Thêm mới thành công! ");
+            System.out.println("Nhấn back hoặc backmenu để quay lại Menu");
             String backMenu = Config.scanner().nextLine();
             if (backMenu.equalsIgnoreCase("back")) {
-                new NavBar();
-                break;
+                new NavBar().navBar();
             }
-        }
+            if (backMenu.equalsIgnoreCase("backmenu")){
+                new NavBar().admin();
+            }
     }
 
     public void formUpdateCategory() {
@@ -60,7 +61,7 @@ public class CategoryView {
                 System.out.println("nhập back để quay lại Menu: ");
                 String backMenu = Config.scanner().nextLine();
                 if (backMenu.equalsIgnoreCase("back")) {
-                     NavBar.NavBar();
+                    new NavBar().navBar();
                     break;
                 }
             }
@@ -74,7 +75,7 @@ public class CategoryView {
             System.out.println("nhập back để quay lại Menu: ");
             String backMenu = Config.scanner().nextLine();
             if (backMenu.equalsIgnoreCase("back")) {
-                NavBar.NavBar();
+              new  NavBar().navBar();
                 break;
             }
         }

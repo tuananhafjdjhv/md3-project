@@ -10,9 +10,12 @@ public class  Config<T> {
         Scanner scanner = new Scanner(System.in);
         return scanner;
     }
+
+    public static final String PATH_CART ="C:\\Users\\Thu Nguyen\\Desktop\\JAVA\\MVC-Demo-CRUD-Product\\src\\ra\\DataBase\\cart.txt";
     public static final String PATH_CATEGORY="C:\\Users\\Thu Nguyen\\Desktop\\JAVA\\MVC-Demo-CRUD-Product\\src\\ra\\DataBase\\category.txt";
     public static final String PATH_PRODUCT = "C:\\Users\\Thu Nguyen\\Desktop\\JAVA\\MVC-Demo-CRUD-Product\\src\\ra\\DataBase\\product.txt";
     public static final String PATH_USER = "C:\\Users\\Thu Nguyen\\Desktop\\JAVA\\MVC-Demo-CRUD-Product\\src\\ra\\DataBase\\user.txt";
+    public static final String PATH_CURRENT_USER ="C:\\Users\\Thu Nguyen\\Desktop\\JAVA\\MVC-Demo-CRUD-Product\\src\\ra\\DataBase\\currentuser.txt";
     public List<T> readFromFile(String pathFile) {
         List<T> tList = new ArrayList<>();
         try {
@@ -48,6 +51,14 @@ public class  Config<T> {
         }catch (IOException i){
             System.err.println("IOE exception!");
         }
-
     }
+//    public void deleteFile(String pathCurrentUser){
+//        try {
+//            PrintWriter pw = new PrintWriter(Config.PATH_CURRENT_USER,pathCurrentUser);
+//            pw.close();
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//
+//    }
 }

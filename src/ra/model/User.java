@@ -59,7 +59,7 @@ public class User  implements Serializable {
     }
 
     public void setUserName(String userName) {
-        userName = userName;
+        this.userName = userName;
     }
 
     public String getEmail() {

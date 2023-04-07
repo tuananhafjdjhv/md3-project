@@ -8,7 +8,7 @@ import ra.dto.request.SingUpDTO;
 import ra.model.Role;
 import ra.model.RoleName;
 import ra.model.User;
-import sun.applet.Main;
+
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,68 +40,89 @@ public class UserView {
         Set<String> strRole = new HashSet<>();
         strRole.add(role);
         SingUpDTO sing = new SingUpDTO(id, name, username, email, password, strRole);
-            System.out.println("chay quay lai-->" + sing);
-            ResponseMessage responseMessage = userController.register(sing);
-            System.out.println("reponse Messeger " + responseMessage.getMessage());
-            if (responseMessage.getMessage().equals("user_existed")) {
-                username = Config.scanner().nextLine();
-                sing.setUsername(username);
-            } else if (responseMessage.getMessage().equals("email_existed")) {
-                System.out.println("email existed");
-                email = Config.scanner().nextLine();
-                sing.setEmail(email);
-            } else if (responseMessage.getMessage().equals("created_success")) {
-                formLogin();
-            }
+        ResponseMessage responseMessage = userController.register(sing);
+//        System.err.println("Tên tài khoản đã tồn tại " + responseMessage.getMessage());
+        if (responseMessage.getMessage().equals("user_existed")) {
+            username = Config.scanner().nextLine();
+            sing.setUsername(username);
+        } else if (responseMessage.getMessage().equals("email_existed")) {
+            System.out.println("email existed");
+            email = Config.scanner().nextLine();
+            sing.setEmail(email);
+        } else if (responseMessage.getMessage().equals("created_success")) {
+            formLogin();
+        }
 
     }
-    public User getUserLogin(){
+
+    public User getUserLogin() {
         return userController.getUserLogin();
     }
 
     public void formLogin() {
-
+        SingInDTO sing = new SingInDTO();
         System.out.println("--------Login-------");
         System.out.println("Nhập UserName:");
-        String userName = Config.scanner().nextLine();
+        sing.setUserName(Config.scanner().nextLine());
         System.out.println("Nhập mật khẩu:");
-        String password = Config.scanner().nextLine();
-        SingInDTO sing = new SingInDTO(userName, password);
+        sing.setPassword(Config.scanner().nextLine());
+
         ResponseMessage message = userController.login(sing);
-        User userLogin = getUserLogin();
-        if (userLogin!=null) {
-            if (message.getMessage().equals("Login Success")){
+
+        if (message.getMessage().equals("Login Success")) {
+            User userLogin = getUserLogin();
+            if (userLogin != null) {
                 Set<Role> roleSet = userLogin.getRoles();
                 List<Role> roleList = new ArrayList<>(roleSet);
-                if (roleList.get(0).getName()== RoleName.ADMIN){
-                    NavBar.admin();
-                }else {
-                   new NavBar().user();
+                if (roleList.get(0).getName() == RoleName.ADMIN) {
+                    new NavBar().admin();
+                } else {
+                    new NavBar().user();
                 }
             }
+            new NavBar().loginRegister();
         } else {
-            System.err.println("tên đăng nhập hoặc mật khẩu sai!!");
-                NavBar.LoginRegister();
+            System.err.println("TÀi khoản hoặc Mật khẩu sai!! Vui  lòng nhập lại");
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            formLogin();
         }
-//        System.out.println("Nhập back để về Login Register: ");
-//        String back = Config.scanner().nextLine();
-//        if (back.equalsIgnoreCase("back")) {
-//            NavBar.LoginRegister();
-//        }
     }
 
     public void showListUser() {
-        System.out.println(userController.getListUser());
+//        System.out.println(userController.getListUser());
         System.out.println("Enter back to return Login Register: ");
         String back = Config.scanner().nextLine();
         if (back.equalsIgnoreCase("back")) {
-            NavBar.LoginRegister();
+            new NavBar().loginRegister();
         }
     }
-    public void updateUser(){
 
+    public void updateUser() {
+        User userLogin = getUserLogin();
+        System.out.println("Nhập tên tài khoản: ");
+        userLogin.setUserName(Config.scanner().nextLine());
+        System.out.println("Nhập password: ");
+        userLogin.setPassword(Config.scanner().nextLine());
+        userController.save(userLogin);
+        userController.updateUserLogin(userLogin);
+        System.out.println("Update thành công");
     }
-    public  void logOut(){
 
+    public void logOut() {
+        userController.logOut();
+        User userLogin = getUserLogin();
+        if (userLogin != null) {
+            Set<Role> roleSet = userLogin.getRoles();
+            List<Role> roleList = new ArrayList<>(roleSet);
+            if (roleList.get(0).getName() == RoleName.ADMIN) {
+                new NavBar().admin();
+            } else {
+                new NavBar().user();
+            }
+        }
     }
 }

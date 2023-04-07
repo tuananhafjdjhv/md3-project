@@ -11,6 +11,7 @@ import ra.service.RoleServiceIMPL;
 import ra.service.IUserService;
 import ra.service.UserServiceIMPl;
 
+import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,6 +42,8 @@ public class UserController {
                     roleSet.add(roleService.FindByName(RoleName.ADMIN));
                 case "user":
                     roleSet.add(roleService.FindByName(RoleName.USER));
+                default:
+                    break;
             }
         });
         User user = new User(singup.getId(), singup.getName(), singup.getUsername(), singup.getEmail(), singup.getPassword(),roleSet);
@@ -52,5 +55,14 @@ public class UserController {
     }
     public User getUserLogin(){
         return userService.getCurentUser();
+    }
+    public void logOut()  {
+        userService.logOut();
+    }
+    public void updateUserLogin(User user){
+        userService.updateUserLogin(user);
+    }
+    public void save(User user) {
+        userService.save(user);
     }
 }

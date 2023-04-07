@@ -3,6 +3,9 @@ package ra.service;
 import ra.config.Config;
 import ra.model.User;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserServiceIMPl implements IUserService {
@@ -51,13 +54,13 @@ public class UserServiceIMPl implements IUserService {
         }
         return false;
     }
+    @Override
     public boolean checkLogin(String userName, String password){
-        List<User> list = new Config<User>().readFromFile(Config.PATH_USER);
-        System.out.println(list);
-        for (User user:list) {
+        List<User> list = new ArrayList<>();
+        for (User user:userList) {
             if (user.getUserName().equals(userName) && user.getPassword().equals(password)){
                 list.add(user);
-                new Config().writeToFile(Config.PATH_USER,list);
+                new Config().writeToFile(Config.PATH_CURRENT_USER,list);
                 return true;
             }
         }
@@ -65,10 +68,23 @@ public class UserServiceIMPl implements IUserService {
     }
     @Override
     public User getCurentUser() {
-        if(new Config<User>().readFromFile(Config.PATH_USER).size()!=0){
-            User user = new Config<User>().readFromFile(Config.PATH_USER).get(0);
+        if(new Config<User>().readFromFile(Config.PATH_CURRENT_USER).size()!=0){
+            User user = new Config<User>().readFromFile(Config.PATH_CURRENT_USER).get(0);
             return user;
         }
         return null;
+    }
+    @Override
+    public void logOut() {
+        List<User> users = new Config<User>().readFromFile(Config.PATH_CURRENT_USER);
+        users.remove(0);
+        new Config<User>().writeToFile(Config.PATH_CURRENT_USER,users);
+//        new Config<User>().deleteFile(Config.PATH_CURRENT_USER);
+    }
+    @Override
+    public void updateUserLogin(User user) {
+        List<User> users = new Config<User>().readFromFile(Config.PATH_CURRENT_USER);
+        users.set(0,user);
+        new Config<User>().writeToFile(Config.PATH_CURRENT_USER,users);
     }
 }
