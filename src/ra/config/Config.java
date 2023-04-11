@@ -1,9 +1,16 @@
 package ra.config;
 
+import ra.controller.UserController;
+import ra.model.Role;
+import ra.model.RoleName;
+import ra.model.User;
+import ra.view.NavBar;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class  Config<T> {
     public static Scanner scanner(){
@@ -59,6 +66,22 @@ public class  Config<T> {
 //        } catch (Exception e){
 //            e.printStackTrace();
 //        }
-//
 //    }
+//    public void changeRole(){
+//        User userLogin = getUserLogin();
+//        if (userLogin != null) {
+//            Set<Role> roleSet = userLogin.getRoles();
+//            List<Role> roleList = new ArrayList<>(roleSet);
+//            if (roleList.get(0).getName() == RoleName.ADMIN) {
+//                new NavBar().admin();
+//            } else {
+//                new NavBar().user();
+//            }
+//        }
+//    }
+//    public User getUserLogin() {
+//        return userController.getUserLogin();
+//    }
+//    UserController userController = new UserController();
+
 }

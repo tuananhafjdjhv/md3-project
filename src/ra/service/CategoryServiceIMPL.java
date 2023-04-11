@@ -39,10 +39,10 @@ public class CategoryServiceIMPL implements ICategoryService {
             if (category.getId() == id) {
                 categoryList.remove(category);
                 new Config<Category>().writeToFile(Config.PATH_CATEGORY, categoryList);
-                System.out.println("delete successfully!");
+                System.out.println("Xóa thành công!!");
                 return;
             }
         }
-        System.out.println("In not found !");
+        System.err.println("In not found !");
     }
 }

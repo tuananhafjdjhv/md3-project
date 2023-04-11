@@ -23,4 +23,7 @@ public class CartController {
     public void addToCart(CartItem cartItem){
         cartService.addToCart(cartItem);
     }
+    public void deleteCartItem(int id){
+        cartService.deleteById(id);
+    }
 }

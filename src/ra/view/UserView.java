@@ -1,6 +1,7 @@
 package ra.view;
 
 import ra.config.Config;
+import ra.controller.CartController;
 import ra.controller.UserController;
 import ra.dto.reponse.ResponseMessage;
 import ra.dto.request.SingInDTO;
@@ -8,6 +9,7 @@ import ra.dto.request.SingUpDTO;
 import ra.model.Role;
 import ra.model.RoleName;
 import ra.model.User;
+import ra.validate.Validate;
 
 
 import java.util.ArrayList;
@@ -20,6 +22,8 @@ public class UserView {
     List<User> userList = userController.getListUser();
 
     public void formRegister() {
+
+        SingUpDTO sing1 = new SingUpDTO();
         System.out.println("size------>" + userList.size());
         int id = 0;
         if (userList.size() == 0 || userList == null) {
@@ -32,7 +36,17 @@ public class UserView {
         System.out.println("Nhập username:");
         String username = Config.scanner().nextLine();
         System.out.println("Nhập email:");
-        String email = Config.scanner().nextLine();
+        String email = "";
+        while (true){
+           email =  Config.scanner().nextLine();
+            if (!Validate.validate(email)){
+                System.err.println("email ko đúng định dang!");
+                System.err.println("Hãy nhập lại");
+            } else {
+                sing1.setEmail(email);
+                break;
+            }
+        }
         System.out.println("Nhập password:");
         String password = Config.scanner().nextLine();
         System.out.println("Nhập quyền role: ");
@@ -43,12 +57,15 @@ public class UserView {
         ResponseMessage responseMessage = userController.register(sing);
 //        System.err.println("Tên tài khoản đã tồn tại " + responseMessage.getMessage());
         if (responseMessage.getMessage().equals("user_existed")) {
+            System.err.println("user_existed");
             username = Config.scanner().nextLine();
             sing.setUsername(username);
+            formRegister();
         } else if (responseMessage.getMessage().equals("email_existed")) {
-            System.out.println("email existed");
+            System.err.println("email_existed");
             email = Config.scanner().nextLine();
             sing.setEmail(email);
+            formRegister();
         } else if (responseMessage.getMessage().equals("created_success")) {
             formLogin();
         }
@@ -93,11 +110,11 @@ public class UserView {
     }
 
     public void showListUser() {
-//        System.out.println(userController.getListUser());
+        System.out.println(userController.getListUser());
         System.out.println("Enter back to return Login Register: ");
         String back = Config.scanner().nextLine();
         if (back.equalsIgnoreCase("back")) {
-            new NavBar().loginRegister();
+            new NavBar().admin();
         }
     }
 
@@ -114,15 +131,14 @@ public class UserView {
 
     public void logOut() {
         userController.logOut();
-        User userLogin = getUserLogin();
-        if (userLogin != null) {
-            Set<Role> roleSet = userLogin.getRoles();
-            List<Role> roleList = new ArrayList<>(roleSet);
-            if (roleList.get(0).getName() == RoleName.ADMIN) {
-                new NavBar().admin();
-            } else {
-                new NavBar().user();
-            }
-        }
+        new NavBar().loginRegister();
+    }
+
+    public void changUserStatus() {
+        System.out.println(userController.getListUser());
+        System.out.println("Nhập id cần block: ");
+        int id = Config.scanner().nextInt();
+        userController.changeUser(id);
+        System.out.println("Block thành công!!");
     }
 }

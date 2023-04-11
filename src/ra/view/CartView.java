@@ -42,4 +42,9 @@ public class CartView {
             System.out.println("add to cart success");
         }
     }
+    public void deleteCartItem(){
+        System.out.println("Nhập id cần xóa trong giỏ hàng: ");
+       int id = Config.scanner().nextInt();
+        cartController.deleteCartItem(id);
+    }
 }

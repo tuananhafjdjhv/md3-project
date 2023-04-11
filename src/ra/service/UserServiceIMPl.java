@@ -1,15 +1,17 @@
 package ra.service;
 
 import ra.config.Config;
+import ra.model.Cart;
+import ra.model.CartItem;
+import ra.model.Category;
 import ra.model.User;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserServiceIMPl implements IUserService {
     List<User> userList = new Config<User>().readFromFile(Config.PATH_USER);
+    List<CartItem> cartList = new Config<CartItem>().readFromFile(Config.PATH_CART);
     @Override
     public List<User> findAll() {
         return userList;
@@ -32,7 +34,15 @@ public class UserServiceIMPl implements IUserService {
 
     @Override
     public void deleteById(int id) {
-
+        for (CartItem cartItem : cartList) {
+            if (cartItem.getId() == id) {
+                cartList.remove(cartItem);
+                new Config<CartItem>().writeToFile(Config.PATH_CART,cartList);
+                System.out.println("Xóa thành công!!");
+                return;
+            }
+        }
+        System.err.println("In not found !");
     }
 
     @Override
@@ -86,5 +96,22 @@ public class UserServiceIMPl implements IUserService {
         List<User> users = new Config<User>().readFromFile(Config.PATH_CURRENT_USER);
         users.set(0,user);
         new Config<User>().writeToFile(Config.PATH_CURRENT_USER,users);
+//        new Config<User>().writeToFile(Config.PATH_USER,users);
+    }
+    @Override
+    public boolean changeUser(int id){
+        if (findByID(id) == null){
+            return false;
+        } else {
+            for (int i = 0; i < userList.size(); i++) {
+                if (userList.get(i).getId() == id ){
+                    List<User> users = new Config<User>().readFromFile(Config.PATH_USER);
+                    userList.get(i).setStatus(false);
+                    new Config<User>().writeToFile(Config.PATH_USER,users);
+                }
+            }
+            return  true;
+        }
+
     }
 }

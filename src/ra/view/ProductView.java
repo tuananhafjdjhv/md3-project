@@ -16,7 +16,7 @@ public class ProductView {
     private static CategoryController categoryController = new CategoryController();
     List<Product> productList = productController.showProduct();
 
-    public static void showProduct() {
+    public void showProduct() {
         UserController userController = new UserController();
         List<User> userList = userController.getListUser();
         List<Product> productList = productController.showProduct();
@@ -33,7 +33,7 @@ public class ProductView {
         } else if (roleList.get(0).getName() == RoleName.USER){
             new NavBar().user();
         } else {
-           new NavBar().loginRegister();
+            NavBar.loginRegister();
         }
     }
     public static User getUserLogin() {

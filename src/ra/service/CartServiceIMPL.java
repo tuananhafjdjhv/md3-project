@@ -1,9 +1,7 @@
 package ra.service;
 
 import ra.config.Config;
-import ra.model.Cart;
-import ra.model.CartItem;
-import ra.model.User;
+import ra.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +74,21 @@ public class CartServiceIMPL implements  ICartService{
 
     @Override
     public void deleteById(int id) {
-
+        List<CartItem> list = new ArrayList<>();
+        for (Cart cartItem : listCart) {
+            if (cartItem.getUser().getId() == getUserLogin().getId()) {
+                list = cartItem.getListCartItem();
+                for (CartItem cartItem1:list) {
+                    if (cartItem1.getProduct().getProductId() == id){
+                        list.remove(cartItem1);
+                        new Config<Cart>().writeToFile(Config.PATH_CART,listCart);
+                        System.out.println("Xóa thành công!!");
+                        return;
+                    }
+                }
+//                listCart.remove(cartItem);
+            }
+        }
+        System.err.println("Id not found !");
     }
 }

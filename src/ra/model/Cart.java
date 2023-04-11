@@ -31,11 +31,11 @@ public class Cart implements Serializable {
         this.listCartItem = listCartItem;
     }
 
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "user=" + user +
-                ", listCartItem=" + listCartItem +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Cart{" +
+//                "user=" + user +
+//                ", listCartItem=" + listCartItem +
+//                '}';
+//    }
 }

@@ -12,7 +12,7 @@ public class User  implements Serializable {
     private String email;
     private String password;
     private String avatar;
-    private boolean status;
+    private boolean status = true;
     private Set<Role> roles = new HashSet<>();
 
     public User(int id, String name, String userName, String email, String password, String avatar, boolean status, Set<Role> roles) {
@@ -104,15 +104,13 @@ public class User  implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", UserName='" + userName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", avatar='" + avatar + '\'' +
-                ", status=" + status +
-                ", roles=" + roles +
-                '}';
+        return
+                "id= " + id +
+                ", name= " + name  +
+                ", UserName= " + userName  +
+                ", email= " + email  +
+                ", password= " + password  +
+                ", status= " + status +
+                '\n';
     }
 }

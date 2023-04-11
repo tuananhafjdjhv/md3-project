@@ -14,4 +14,6 @@ public interface IUserService extends IGenericService<User> {
     void logOut();
 
     void updateUserLogin(User user);
+
+    boolean changeUser(int id);
 }

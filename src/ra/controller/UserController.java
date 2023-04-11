@@ -11,7 +11,6 @@ import ra.service.RoleServiceIMPL;
 import ra.service.IUserService;
 import ra.service.UserServiceIMPl;
 
-import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,8 +39,10 @@ public class UserController {
             switch (role){
                 case "admin":
                     roleSet.add(roleService.FindByName(RoleName.ADMIN));
+                    break;
                 case "user":
                     roleSet.add(roleService.FindByName(RoleName.USER));
+                    break;
                 default:
                     break;
             }
@@ -64,5 +65,8 @@ public class UserController {
     }
     public void save(User user) {
         userService.save(user);
+    }
+    public boolean changeUser(int id){
+       return userService.changeUser(id);
     }
 }
