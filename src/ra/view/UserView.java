@@ -51,10 +51,10 @@ public class UserView {
         String role ="";
         while (true){
             role = InputMethod.getString();
-            if (role==null){
-                System.out.println("Không nên để trống!");
+            if (role.equals("1912")){
+                break;
             } if(!role.equals("mobile")){
-                System.out.println("Hãy nhập lại");
+                System.err.println("Sai cú pháp! Hãy nhập lại");
             } else break;
         }
 
@@ -74,6 +74,7 @@ public class UserView {
             sing.setEmail(email);
             formRegister();
         } else if (responseMessage.getMessage().equals("created_success")) {
+            System.out.println("Đăng kí thành công!");
             formLogin();
         }
 
