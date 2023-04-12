@@ -37,8 +37,8 @@ public class  Config<T> {
 
         } catch (FileNotFoundException f) {
             System.err.println("File not Found!");
+//            System.err.println("IOE exception");
         }catch (IOException i) {
-            System.err.println("IOE exception");
         } catch (ClassNotFoundException c) {
             System.err.println("Class not Found!");
         }
@@ -59,29 +59,4 @@ public class  Config<T> {
             System.err.println("IOE exception!");
         }
     }
-//    public void deleteFile(String pathCurrentUser){
-//        try {
-//            PrintWriter pw = new PrintWriter(Config.PATH_CURRENT_USER,pathCurrentUser);
-//            pw.close();
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-//    public void changeRole(){
-//        User userLogin = getUserLogin();
-//        if (userLogin != null) {
-//            Set<Role> roleSet = userLogin.getRoles();
-//            List<Role> roleList = new ArrayList<>(roleSet);
-//            if (roleList.get(0).getName() == RoleName.ADMIN) {
-//                new NavBar().admin();
-//            } else {
-//                new NavBar().user();
-//            }
-//        }
-//    }
-//    public User getUserLogin() {
-//        return userController.getUserLogin();
-//    }
-//    UserController userController = new UserController();
-
 }

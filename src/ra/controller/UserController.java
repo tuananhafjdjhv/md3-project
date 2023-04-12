@@ -1,5 +1,7 @@
 package ra.controller;
 
+import ra.InputMethod;
+import ra.config.Config;
 import ra.dto.reponse.ResponseMessage;
 import ra.dto.request.SingInDTO;
 import ra.dto.request.SingUpDTO;
@@ -37,10 +39,10 @@ public class UserController {
         Set<Role> roleSet = new HashSet<>();
         strRole.forEach(role -> {
             switch (role){
-                case "admin":
+                case "1912":
                     roleSet.add(roleService.FindByName(RoleName.ADMIN));
                     break;
-                case "user":
+                case "mobile":
                     roleSet.add(roleService.FindByName(RoleName.USER));
                     break;
                 default:

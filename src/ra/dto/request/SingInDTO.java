@@ -27,12 +27,4 @@ public class SingInDTO {
         this.userName = userName;
         this.password = password;
     }
-
-    @Override
-    public String toString() {
-        return "SingInDTO{" +
-                "userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }

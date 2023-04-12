@@ -6,6 +6,5 @@ import ra.model.RoleName;
 import java.util.List;
 
 public interface IRoleService {
-    List<Role> findAll();
     Role FindByName(RoleName name);
 }

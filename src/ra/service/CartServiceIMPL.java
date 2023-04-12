@@ -51,12 +51,11 @@ public class CartServiceIMPL implements  ICartService{
             if (listCart.get(i).getUser().equals(cart.getUser())){
                 listCart.set(i,cart);
                 check = true;
+                new Config<Cart>().writeToFile(Config.PATH_CART,listCart);
                 break;
             }
         }
-        if (!check) {
-            listCart.add(cart);
-        }
+        listCart.add(cart);
         new Config<Cart>().writeToFile(Config.PATH_CART,listCart);
     }
 
@@ -82,13 +81,13 @@ public class CartServiceIMPL implements  ICartService{
                     if (cartItem1.getProduct().getProductId() == id){
                         list.remove(cartItem1);
                         new Config<Cart>().writeToFile(Config.PATH_CART,listCart);
-                        System.out.println("Xóa thành công!!");
+                        System.out.println("Xóa thành công !!");
                         return;
                     }
                 }
 //                listCart.remove(cartItem);
             }
         }
-        System.err.println("Id not found !");
+        System.err.println("Id không tồn tại !");
     }
 }

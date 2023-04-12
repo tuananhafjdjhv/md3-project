@@ -1,16 +1,7 @@
 package ra.view;
 
+import ra.InputMethod;
 import ra.config.Config;
-import ra.controller.UserController;
-import ra.model.Role;
-import ra.model.RoleName;
-import ra.model.User;
-
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class NavBar {
     public void user() {
@@ -22,7 +13,8 @@ public class NavBar {
             System.out.println("5.Update user");
             System.out.println("6.Log Out");
             System.out.println("7. Delete Cart Item");
-            int choice = Config.scanner().nextInt();
+            int choice =  InputMethod.getInteger();
+
             switch (choice) {
                 case 1:
                    new ProductView().showProduct();
@@ -64,7 +56,7 @@ public class NavBar {
             System.out.println("7. Đăng xuất");
             System.out.println("8. Block người dùng: ");
 
-            int choice = Config.scanner().nextInt();
+            int choice = InputMethod.getInteger();
             switch (choice) {
                 case 1:
                     new NavBar().navBar();
@@ -105,7 +97,7 @@ public class NavBar {
             System.out.println("3.Update Category");
             System.out.println("4.Delete Category");
             System.out.println("5.Back");
-            int chooseMenu = Config.scanner().nextInt();
+            int chooseMenu =  InputMethod.getInteger();
             switch (chooseMenu) {
                 case 1:
                     new CategoryView().showFormCategoryList();
@@ -131,7 +123,7 @@ public class NavBar {
             System.out.println("1. Register");
             System.out.println("2. Login");
             System.out.println("3.Show Lít Product");
-            int chooseMenu = Config.scanner().nextInt();
+            int chooseMenu =  InputMethod.getInteger();
             switch (chooseMenu) {
                 case 1:
                     new UserView().formRegister();
@@ -143,7 +135,6 @@ public class NavBar {
                    new  ProductView().showProduct();
                     break;
                 default:
-                    System.err.println("Nhập sai rồi");
                     break;
             }
         }

@@ -1,5 +1,6 @@
 package ra.view;
 
+import ra.InputMethod;
 import ra.config.Config;
 import ra.controller.CartController;
 import ra.controller.ProductController;
@@ -14,7 +15,7 @@ public class CartView {
     ProductController productController = new ProductController();
     public void showCart(){
         List<CartItem> listCartItems = cartController.getListCartItems();
-        System.out.println("Đây là list cart");
+//        System.out.println("Đây là list cart");
         float total = 0;
         if (listCartItems.size() > 0) {
             for (CartItem cartitem : listCartItems) {
@@ -22,29 +23,30 @@ public class CartView {
                 System.out.printf("{product: %s , quantity : %d} \n",cartitem.getProduct(),cartitem.getQuantity());
             }
         } else {
-            System.out.print("\n" +
-                    "Hiện tại không có sản phẩm nào trong giỏ hàng của bạn");
+            System.err.print("\n" +
+                    "Hiện tại không có sản phẩm nào trong giỏ hàng của bạn!" +
+                    " Hãy thêm vào nhé!");
         }
-        System.out.println("Total : " +total);
+        System.out.println("Tổng tiền : " +total+" USD");
 
     }
     public void addCartItem(){
-        System.out.println("Enter product id");
-        Product product = productController.findById(Config.scanner().nextInt());
+        System.out.println("Nhập id sản phẩm muốn thêm: ");
+        Product product = productController.findById(InputMethod.getInteger());
         if (product == null) {
-            System.err.println("Id not found");
+            System.err.println("Id không có! ");
             addCartItem();
         }else {
-            System.out.println("Enter quantity");
-            int quantity = Config.scanner().nextInt();
+            System.out.println("Nhập số lượng: ");
+            int quantity = InputMethod.getInteger();
             CartItem  newCartItem = new CartItem(product,quantity);
             cartController.addToCart(newCartItem);
-            System.out.println("add to cart success");
+            System.out.println("Thêm vào giỏ hàng thành công!");
         }
     }
     public void deleteCartItem(){
         System.out.println("Nhập id cần xóa trong giỏ hàng: ");
-       int id = Config.scanner().nextInt();
+       int id = InputMethod.getInteger();
         cartController.deleteCartItem(id);
     }
 }

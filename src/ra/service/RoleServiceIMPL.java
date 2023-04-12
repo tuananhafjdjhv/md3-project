@@ -13,11 +13,6 @@ public class RoleServiceIMPL implements IRoleService{
         roles.add(new Role(2,RoleName.ADMIN));
     }
     @Override
-    public List<Role> findAll() {
-        return roles;
-    }
-
-    @Override
     public Role FindByName(RoleName name) {
         for (int i = 0; i < roles.size(); i++) {
             if (roles.get(i).getName()== name){

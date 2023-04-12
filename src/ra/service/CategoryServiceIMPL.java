@@ -43,6 +43,6 @@ public class CategoryServiceIMPL implements ICategoryService {
                 return;
             }
         }
-        System.err.println("In not found !");
+        System.err.println("In không tồn tại !");
     }
 }

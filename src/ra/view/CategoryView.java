@@ -1,5 +1,6 @@
 package ra.view;
 
+import ra.InputMethod;
 import ra.config.Config;
 import ra.controller.CategoryController;
 import ra.model.Category;
@@ -12,12 +13,12 @@ public class CategoryView {
 
     public void showFormCategoryList() {
         System.out.println("===============================TABLE CATEGORY =============================");
-        System.out.println("======ID======NAME======");
+        System.out.println("----------ID----------NAME--------");
         for (int i = 0; i < categoryList.size(); i++) {
-            System.out.println("======" + categoryList.get(i).getId() + "======" + categoryList.get(i).getName()+"=====");
+            System.out.println("----------" + categoryList.get(i).getId() + "----------" + categoryList.get(i).getName()+"----------");
         }
         System.out.println("Nhấn back để quay lại Menu ");
-        String backMenu = Config.scanner().nextLine();
+        String backMenu = InputMethod.getString();
         if (backMenu.equalsIgnoreCase("back")) {
            new NavBar().navBar();
         }
@@ -37,7 +38,7 @@ public class CategoryView {
             categoryController.createCategoryToDB(category);
             System.out.println("Thêm mới thành công! ");
             System.out.println("Nhấn back hoặc backmenu để quay lại Menu");
-            String backMenu = Config.scanner().nextLine();
+            String backMenu = InputMethod.getString();
             if (backMenu.equalsIgnoreCase("back")) {
                 new NavBar().navBar();
             }
@@ -54,12 +55,12 @@ public class CategoryView {
                 System.err.println("Id không tồn tại ! vui lòng nhập lại");
             } else {
                 System.out.println("Nhập name: ");
-                String name = Config.scanner().nextLine();
+                String name = InputMethod.getString();
                 Category category = new Category(id, name);
                 categoryController.updateCategory(category);
                 System.out.println("Update Thành công!");
                 System.out.println("nhập back để quay lại Menu: ");
-                String backMenu = Config.scanner().nextLine();
+                String backMenu = InputMethod.getString();
                 if (backMenu.equalsIgnoreCase("back")) {
                     new NavBar().navBar();
                     break;
@@ -69,11 +70,11 @@ public class CategoryView {
     }
     public void formDeleteCategory(){
         while (true){
-            System.out.println("enter the id to delete");
-            int id = Config.scanner().nextInt();
+            System.out.println("Nhập id danh mục cần xóa");
+            int id = InputMethod.getInteger();
             categoryController.deleteCategory(id);
             System.out.println("nhập back để quay lại Menu: ");
-            String backMenu = Config.scanner().nextLine();
+            String backMenu = InputMethod.getString();
             if (backMenu.equalsIgnoreCase("back")) {
               new  NavBar().navBar();
                 break;
